@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './products/products.module';
 import { Product } from './products/entities/product.entity';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 require('dotenv').config();
 
 @Module({
@@ -19,6 +21,8 @@ require('dotenv').config();
       synchronize: true,         // Only for development; disable in production
     }),
     ProductsModule,
+    AuthModule,
+    UsersModule,
   
 
   ],
