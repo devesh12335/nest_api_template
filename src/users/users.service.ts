@@ -1,11 +1,12 @@
-// src/user/user.service.ts
 
-import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PasswordService } from 'src/auth/password.service';
+import { AuthService } from 'src/auth/auth.service';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 
 
 @Injectable()
@@ -13,11 +14,28 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+
+    
+    private readonly passwordService: PasswordService,
+
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService: AuthService
+
   ) {}
 
-  create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto) {
+    const hashedPassword = await this.passwordService.hashPassword(createUserDto.password);
+      createUserDto.password = hashedPassword;
     const user = this.userRepository.create(createUserDto);
-    return this.userRepository.save(user);
+    const userData =await this.userRepository.save(user);
+    if(user == null){
+      throw 'User Creation Failed';
+    }
+
+    const token = await this.authService.signIn(user.email,createUserDto.password);
+    
+
+    return {jwtToken:token}
   }
 
   findAll(): Promise<User[]> {

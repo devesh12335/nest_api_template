@@ -6,6 +6,8 @@ import { ProductsModule } from './products/products.module';
 import { Product } from './products/entities/product.entity';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
+import { Auth } from './auth/entities/auth.entity';
 require('dotenv').config();
 
 @Module({
@@ -17,14 +19,16 @@ require('dotenv').config();
       username: process.env.DB_USER,  // Replace with your PostgreSQL username
       password:process.env.DB_PASSWORD,  // Replace with your PostgreSQL password
       database: process.env.DB_DATABASE,  // Replace with your PostgreSQL database name
-      entities: [Product],
+      entities: [
+        Product,
+        User,
+        Auth
+      ],
       synchronize: true,         // Only for development; disable in production
     }),
     ProductsModule,
     AuthModule,
     UsersModule,
-  
-
   ],
   controllers: [AppController],
   providers: [AppService],
