@@ -7,6 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { PasswordService } from 'src/auth/password.service';
 import { AuthService } from 'src/auth/auth.service';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Request } from 'express';
 
 
 @Injectable()
@@ -23,7 +24,8 @@ export class UserService {
 
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto,req:Request) {
+    const plainPass = createUserDto.password;
     const hashedPassword = await this.passwordService.hashPassword(createUserDto.password);
       createUserDto.password = hashedPassword;
     const user = this.userRepository.create(createUserDto);
@@ -32,7 +34,7 @@ export class UserService {
       throw 'User Creation Failed';
     }
 
-    const token = await this.authService.signIn(user.email,createUserDto.password);
+    const token = await this.authService.signIn(user.email,plainPass,req);
     
 
     return {jwtToken:token}

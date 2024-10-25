@@ -1,11 +1,13 @@
 // src/user/user.controller.ts
 
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Req } from '@nestjs/common';
 import { UserService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/auth/constants';
+import { Request } from 'express';
+
 
 @ApiTags('Users')
 @Controller('users')
@@ -14,8 +16,8 @@ export class UserController {
 
   @Public()
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  create(@Body() createUserDto: CreateUserDto, @Req() req: Request) {
+    return this.userService.create(createUserDto,req);
   }
 
   @Get()

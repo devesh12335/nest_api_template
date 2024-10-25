@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { join } from 'path';
 import { readFileSync } from 'fs';
+import * as session from 'express-session';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +15,17 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, documentFactory);
+
+   // Use session middleware
+   app.use(
+    session({
+      
+      secret: 'my-secret',   // Change this to a secure random string
+      resave: false,
+      saveUninitialized: false,
+      cookie: { secure: false },  // Set secure: true if using HTTPS
+    }),
+  );
   
   await app.listen(process.env.PORT ?? 3000);
 }

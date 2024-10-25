@@ -1,6 +1,7 @@
 // src/user/dto/create-user.dto.ts
 
 import { IsString, IsEmail, IsNotEmpty, MinLength, MaxLength, IsMobilePhone, length } from 'class-validator';
+import { Unique } from 'typeorm';
 
 export class CreateUserDto {
   @IsString()
