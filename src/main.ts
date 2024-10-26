@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { readFileSync } from 'fs';
 import * as session from 'express-session';
+require('dotenv').config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,7 +21,7 @@ async function bootstrap() {
    app.use(
     session({
       
-      secret: 'my-secret',   // Change this to a secure random string
+      secret: process.env.SESSION_SECRET,   // Change this to a secure random string
       resave: false,
       saveUninitialized: false,
       cookie: { secure: false },  // Set secure: true if using HTTPS

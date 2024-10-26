@@ -8,6 +8,8 @@ import { PasswordService } from 'src/auth/password.service';
 import { AuthService } from 'src/auth/auth.service';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Request } from 'express';
+import { RefreshToken } from './entities/refresh.entity';
+import { CreateRefreshTokenDto } from './dto/refresh.dto';
 
 
 @Injectable()
@@ -15,6 +17,9 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    
+    @InjectRepository(RefreshToken)
+    private refreshTokenRepository: Repository<RefreshToken>,
 
     
     private readonly passwordService: PasswordService,
@@ -48,12 +53,26 @@ export class UserService {
     return this.userRepository.findOne({ where: { id } });
   }
   
+  findOneRefreshToken(id: number) {
+    return this.refreshTokenRepository.findOne({ where: { user_id:id } });
+  }
+  
+
+
+  
   findOneByEmail(email: string): Promise<User> {
     return this.userRepository.findOne({ where: { email } });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     await this.userRepository.update(id, updateUserDto);
+    return this.findOne(id);
+  }
+  
+  async updateRefreshToken(id: number, refreshToken: string): Promise<User> {
+    const dto = new CreateRefreshTokenDto();
+    dto.refresh_token = refreshToken;
+    await this.refreshTokenRepository.update(id, dto);
     return this.findOne(id);
   }
 

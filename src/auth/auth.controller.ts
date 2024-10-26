@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseGuards, Req, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard';
 import { ApiTags } from '@nestjs/swagger';
@@ -26,15 +26,27 @@ export class AuthController {
   }
 
   // Log out endpoint
-  @Post('logout')
-  logout(@Req() req: Request): string {
-    return this.authService.logout(req);
+  @Post('logout/:userId')
+  async logout(@Req() req: Request,@Param('userId') userId:number): Promise<string> {
+
+    return this.authService.logout(req,userId);
   }
 
   // Check login status
   @Public()
   @Get('status')
-  status(@Req() req: Request): string {
+  status(@Req() req: Request){
     return this.authService.isLoggedIn(req);
   }
+  
+  @Post('refresh')
+  async refresh(@Body('refreshToken') refreshToken: string) {
+    try {
+      return await this.authService.refreshAccessToken(refreshToken);
+    } catch (error) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+  }
+
+ 
 }
