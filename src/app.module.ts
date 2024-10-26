@@ -25,6 +25,7 @@ require('dotenv').config();
         Auth
       ],
       synchronize: true,         // Only for development; disable in production
+      autoLoadEntities: true,
     }),
     ProductsModule,
     AuthModule,

@@ -14,6 +14,8 @@ export class AuthService {
     private jwtService: JwtService,
 
     private readonly passwordService: PasswordService,
+
+    @Inject(forwardRef(() => LoginSessionService))
     private readonly loginService: LoginSessionService,
   ) {}
   
@@ -57,6 +59,8 @@ export class AuthService {
       expiresIn: '7d',     // Refresh token expiry
     });
 
+    this.usersService.updateRefreshToken(userId,refreshToken);
+
     return { accessToken, refreshToken };
   }
 
@@ -77,7 +81,7 @@ export class AuthService {
         throw new UnauthorizedException();
       }
     } catch (error) {
-      throw new UnauthorizedException('Invalid refresh token');
+      throw new UnauthorizedException('Invalid refresh token '+error);
     }
   }
 

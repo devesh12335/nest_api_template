@@ -9,7 +9,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { RefreshToken } from './entities/refresh.entity';
-import { CreateRefreshTokenDto } from './dto/refresh.dto';
+import { CreateRefreshTokenDto, UpdateRefreshDto } from './dto/refresh.dto';
 
 
 @Injectable()
@@ -38,7 +38,7 @@ export class UserService {
     if(user == null){
       throw 'User Creation Failed';
     }
-
+    // this.updateRefreshToken(userData.id,null);
     const token = await this.authService.signIn(user.email,plainPass,req);
     
 
@@ -70,10 +70,25 @@ export class UserService {
   }
   
   async updateRefreshToken(id: number, refreshToken: string): Promise<User> {
-    const dto = new CreateRefreshTokenDto();
-    dto.refresh_token = refreshToken;
-    await this.refreshTokenRepository.update(id, dto);
-    return this.findOne(id);
+    const dto = new UpdateRefreshDto();
+  dto.refresh_token = refreshToken;
+  dto.user_id = id;
+
+  // Check if a refresh token exists for this user ID
+  const token = await this.refreshTokenRepository.findOne({ where: { user_id: id } });
+
+  if (token) {
+    // Update existing token
+    const result = await this.refreshTokenRepository.update({ user_id: id }, dto);
+    if (result.affected === 0) {
+      throw new Error('Update failed');
+    }
+  } else {
+    // Save a new token if it doesn't exist
+    await this.refreshTokenRepository.save(this.refreshTokenRepository.create(dto));
+  }
+
+  return this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {

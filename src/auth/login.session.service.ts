@@ -1,14 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { UserService } from 'src/users/users.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class LoginSessionService {
   constructor(
     private jwtService: JwtService,
 
-    private readonly userService: UserService
+    private readonly userService: UserService,
+
+    @Inject(forwardRef(() => AuthService))
+    private readonly authService:AuthService
 
   ){}
   // Log in the user and create a session
@@ -42,8 +46,8 @@ export class LoginSessionService {
       const user = await this.userService.findOneByEmail(req.session.username);
       const payload = { sub: user.id, email: user.email };
       
-     const access_token =  await this.jwtService.signAsync(payload,{expiresIn:'1h'});
-
+     const access_token =  await this.authService.generateTokens(user.id);
+       
       return {
         message: `User ${req.session.username} is logged in`,
         status:200,

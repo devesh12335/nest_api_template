@@ -39,12 +39,14 @@ export class AuthController {
     return this.authService.isLoggedIn(req);
   }
   
+  @Public()
   @Post('refresh')
   async refresh(@Body('refreshToken') refreshToken: string) {
     try {
+      console.log(refreshToken);
       return await this.authService.refreshAccessToken(refreshToken);
     } catch (error) {
-      throw new UnauthorizedException('Invalid refresh token');
+      throw new UnauthorizedException('Invalid refresh token' +error);
     }
   }
 
