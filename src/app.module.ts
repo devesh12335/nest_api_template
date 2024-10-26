@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { Auth } from './auth/entities/auth.entity';
+import { FileModule } from './file/file.module';
 require('dotenv').config();
 
 @Module({
@@ -30,6 +31,7 @@ require('dotenv').config();
     ProductsModule,
     AuthModule,
     UsersModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
