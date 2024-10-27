@@ -11,6 +11,8 @@ import { Auth } from './auth/entities/auth.entity';
 import { FileModule } from './file/file.module';
 require('dotenv').config();
 
+
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
