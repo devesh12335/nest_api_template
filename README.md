@@ -22,82 +22,159 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+# NestJS TypeORM Project Template
 
-```bash
-$ npm install
+This project is built with [NestJS](https://nestjs.com/) and [TypeORM](https://typeorm.io/), leveraging a secure, modular, and scalable backend structure. It provides robust features such as JWT authentication with refresh tokens, RESTful architecture, and seamless file uploads. The backend connects to a PostgreSQL database, making it suitable for production-grade applications. The setup process is Docker-friendly, enabling fast and efficient deployment.
+
+## Table of Contents
+
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Docker Setup](#docker-setup)
+- [Environment Variables](#environment-variables)
+- [Running the App](#running-the-app)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- **Modular Structure**: Designed with a modular approach for scalability, maintainability, and easy expansion.
+- **Secure JWT Authentication**: Implemented access and refresh tokens to ensure secure user sessions.
+- **RESTful Architecture**: Follows REST principles for a clean and predictable API design.
+- **File Uploads**: Supports file upload functionality with base URL embedding in the response.
+- **PostgreSQL Database**: Uses PostgreSQL with TypeORM for a reliable and high-performance database layer.
+- **Docker Integration**: Provides easy Docker setup for quick development and deployment.
+
+## Project Structure
+
+```plaintext
+src/
+├── auth/               # JWT authentication module
+├── common/             # Common utilities and constants
+├── config/             # Configuration and environment settings
+├── database/           # TypeORM entities, migrations, seeds
+├── modules/            # Feature-specific modules (e.g., User, Product)
+├── uploads/            # File upload storage
+├── main.ts             # Application entry point
+├── app.module.ts       # Root application module
 ```
 
-## Compile and run the project
+## Prerequisites
 
-```bash
-# development
-$ npm run start
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [Docker](https://www.docker.com/)
+- [PostgreSQL](https://www.postgresql.org/) (if running locally without Docker)
 
-# watch mode
-$ npm run start:dev
+## Installation
 
-# production mode
-$ npm run start:prod
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/devesh12335/nest_api_template.git
+   cd nestjs-typeorm-app
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+## Docker Setup
+
+This project provides a `Dockerfile` and a `docker-compose.yml` file for easy setup and deployment.
+
+### Build and Run with Docker Compose
+
+1. Build and start the containers:
+
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Verify that the app is running:
+
+   - Access the app at [http://localhost:3000](http://localhost:3000).
+   - The PostgreSQL database will be available on port 5432.
+
+3. To stop the containers:
+
+   ```bash
+   docker-compose down
+   ```
+
+### Key Docker Commands
+
+- **Rebuild the container**: `docker-compose build`
+- **Run migrations**: `docker-compose exec app npm run typeorm migration:run`
+- **Run seeds**: `docker-compose exec app npm run seed`
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and update the variables as needed:
+
+```plaintext
+# Application
+PORT=3000
+
+# Database
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+DB_DATABASE=your_database
+
+# JWT
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRATION=3600
+JWT_REFRESH_SECRET=your_refresh_jwt_secret
+JWT_REFRESH_EXPIRATION=86400
 ```
 
-## Run tests
+## Running the App
+
+### Development
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:dev
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Production
 
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run build
+npm run start:prod
 ```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-
 
 ## TO Generate new module
 nest generate resource products
+
+## API Documentation
+
+This project uses [Swagger](https://swagger.io/) for API documentation. After starting the app, visit [http://localhost:3000/docs](http://localhost:3000/docs) to view the documentation.
+
+## Key Commands
+
+| Command                      | Description                                  |
+|------------------------------|----------------------------------------------|
+| `npm run start`              | Starts the app in development mode           |
+| `npm run build`              | Compiles the app                            |
+| `npm run start:prod`         | Runs the compiled app                       |
+| `npm run migration:run`      | Runs all migrations                         |
+| `npm run migration:generate` | Generates a new migration                   |
+| `npm run seed`               | Runs the seeding scripts                    |
+
+## Contributing
+
+Contributions are welcome! Please submit a pull request or open an issue for any bug fixes or feature requests.
+
+## License
+
+This project is licensed under the MIT License.
+
+
