@@ -152,7 +152,9 @@ npm run start:prod
 ```
 
 ## TO Generate new module
+```bash
 nest generate resource products
+```
 
 ## API Documentation
 
