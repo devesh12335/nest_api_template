@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFileDto } from './dto/create-file.dto';
-import { UpdateFileDto } from './dto/update-file.dto';
+
 import { InjectRepository } from '@nestjs/typeorm';
 import { UploadedFile } from './entities/file.entity';
 import { Repository } from 'typeorm';
@@ -14,8 +13,10 @@ export class FileService {
   ) {}
 
   async saveFileData(file: Express.Multer.File, req: Request) {
+     
+
     const baseUrl = `${req.protocol}://${req.get('host')}`;
-    const filePath = `${baseUrl}/${file.path.replace(/\\/g, '/')}`;
+    const filePath = `${baseUrl}/uploads/${file.filename}`;
     const newFile = this.uploadedFileRepository.create({
       filename: file.filename,
       path: filePath,
