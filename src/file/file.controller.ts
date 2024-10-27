@@ -55,17 +55,14 @@ export class FileController {
     if (!files) {
       throw new Error("Files are not received");
     }
-    const metaList = [];
-    files.forEach(async (file)=>{
-      const meta =await  this.fileService.saveFileData(file,req);
-      metaList.push(meta);
-      
-    });
+  
+      const meta =await  this.fileService.saveMultipleFileData(files,req);
+     
 
     return {
       message: 'Multiple files uploaded successfully!',
-      files,
-      metaData: metaList
+      // files,
+      metaData: meta
 
     };
   }
