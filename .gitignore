@@ -1,0 +1,71 @@
+
+-------------------------------------------------------------------
+
+NESTJS/TYPESCRIPT SPECIFIC IGNORES
+
+-------------------------------------------------------------------
+
+TypeScript compilation output (where your compiled JavaScript lives)
+
+/dist
+/build
+/out
+
+Testing and Coverage results
+
+/coverage
+
+NestJS CLI cache folder
+
+/.nestjs-cli-cache
+
+-------------------------------------------------------------------
+
+CRITICAL SECURITY FILES: ENVIRONMENT VARIABLES
+
+NEVER commit files containing secrets or credentials.
+
+-------------------------------------------------------------------
+
+.env
+.env.development
+.env.production
+.env.test
+.env.local
+.env.*.local
+.vault.json
+
+-------------------------------------------------------------------
+
+NODE MODULES AND PACKAGE MANAGER FILES
+
+-------------------------------------------------------------------
+
+/node_modules
+/npm-debug.log*
+/yarn-error.log*
+/pnpm-debug.log*
+
+-------------------------------------------------------------------
+
+EDITOR AND OPERATING SYSTEM FILES
+
+-------------------------------------------------------------------
+
+Visual Studio Code
+
+.vscode/
+
+JetBrains IDEs (IntelliJ, WebStorm, etc.)
+
+.idea/
+
+Operating System Files
+
+.DS_Store
+Thumbs.db
+
+Misc temporary files
+
+*.log
+*.tmp

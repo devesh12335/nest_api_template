@@ -1,0 +1,88 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: tropical_app
+    ports:
+      - "3000:3000"
+    depends_on:
+<<<<<<< HEAD
+      - redis
+    networks:
+      - app_network
+======edis   # ✅ makes app wait for redis to start
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - app_network
+
+
+  redis:
+    image: redis:7
+    container_name: redis_server
+    ports:
+      - "6379:6379"
+<<<<<<< HEAD
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+
+volumes:
+  redis_data:
+
+networks:
+  app_network:
+    driver: bridge
+=======
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+>>>>>>> c98de3378688d0f4ab93a41ac118ef9b405f4d27
+    # depends_on:
+    #   - db
+    # environment:
+    #   - DATABASE_HOST=localhost
+    #   - DATABASE_PORT=3306
+    #   - DATABASE_USER=myuser
+    #   - DATABASE_PASSWORD=mypassword
+    #   - DATABASE_NAME=mydb
+
+  #  environment:
+  #       - DATABASE_HOST=193.203.184.189
+  #       - DATABASE_PORT=3306
+  #       - DATABASE_USER=u815751266_devesh
+  #       - DATABASE_PASSWORD=Devesh@9648
+  #       - DATABASE_NAME=u815751266_test_db
+
+  # db:
+  #   image: postgres:15
+  #   container_name: postgres_db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: 123
+  #     POSTGRES_DB: template1
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
+  # pgadmin:
+  #   image: dpage/pgadmin4:latest
+  #   container_name: pgadmin_container
+  #   ports:
+  #     - "8080:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@admin.com
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   depends_on:
+  #     - db
+
+# volumes:
+#   postgres_data:
+
