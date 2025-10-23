@@ -28,6 +28,10 @@
 
 This project is built with [NestJS](https://nestjs.com/) and [TypeORM](https://typeorm.io/), leveraging a secure, modular, and scalable backend structure. It provides robust features such as JWT authentication with refresh tokens, RESTful architecture, and seamless file uploads. The backend connects to a PostgreSQL database, making it suitable for production-grade applications. The setup process is Docker-friendly, enabling fast and efficient deployment.
 
+## Setup Requirenments
+1. Create config/cred.json and add firebase google_service.json credentials
+2. Create .env in project root folder and update with credentials mentioned below
+
 ## Table of Contents
 
 - [Features](#features)
@@ -119,18 +123,18 @@ This project provides a `Dockerfile` and a `docker-compose.yml` file for easy se
 Copy `.env.example` to `.env` and update the variables as needed:
 
 ```plaintext
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_USER=myuser
-DB_PASSWORD=mypassword
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=root
+DB_PASSWORD=123
 DB_DATABASE=mydb
 PORT=3000
 MODE=DEV
 RUN_MIGRATIONS=true
-
+ 
 REDIS_HOST=localhost
 REDIS_PORT=6379
-
+ 
 JWT_SECRET=YourSecreteKey
 JWT_REFRESH_SECRET=YourSecreteKey
 SESSION_SECRET=mySecretKey9090
@@ -166,11 +170,11 @@ This project uses [Swagger](https://swagger.io/) for API documentation. After st
 | Command                      | Description                                  |
 |------------------------------|----------------------------------------------|
 | `npm run start`              | Starts the app in development mode           |
-| `npm run build`              | Compiles the app                            |
-| `npm run start:prod`         | Runs the compiled app                       |
-| `npm run migration:run`      | Runs all migrations                         |
-| `npm run migration:generate` | Generates a new migration                   |
-| `npm run seed`               | Runs the seeding scripts                    |
+| `npm run build`              | Compiles the app                             |
+| `npm run start:prod`         | Runs the compiled app                        |
+| `npm run migration:run`      | Runs all migrations                          |
+| `npm run migration:generate` | Generates a new migration                    |
+| `npm run seed`               | Runs the seeding scripts                     |
 
 ## Contributing
 
