@@ -30,9 +30,7 @@ console.log('ENV PASS:', process.env.DB_PASSWORD);
     .setTitle(getProjectName())
     .setDescription('All Apis ')
     .setVersion('1.0')
-    .addTag('cats')
-    .addTag('Set-Roles', 'Endpoints for managing Firebase Custom Claims')
-    .setTitle('Shinee Trip')
+    .setTitle('New Project')
     .addBearerAuth(
       {
         type: 'http',
