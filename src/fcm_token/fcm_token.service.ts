@@ -55,12 +55,7 @@ export class FcmTokenService {
       relations: ['user', 'user.roles'],
     });
   
-    const filteredTokens = tokens
-      .filter(token =>
-        token.user.roles.some(role => role.id === roleId)
-      )
-      .map(token => token.token);
-  
+    const filteredTokens =[];
     return filteredTokens;
   }
   

@@ -1,7 +1,7 @@
 
 
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Role } from './role.entity';
+
 
 @Entity('users')
 export class User {
@@ -45,13 +45,5 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
   
-  // @UpdateDateColumn()
-  // refresh_token: string;
-  
-  @Column({ type: 'text', nullable: true })
-  delivery_partner_status: string; // Changed to camelCase for consistency in code
 
-  @ManyToMany(() => Role, (role) => role, { cascade: true })
-  @JoinTable() // This creates the join table for the many-to-many relationship
-  roles: Role[];
 }

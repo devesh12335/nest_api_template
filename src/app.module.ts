@@ -7,39 +7,20 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
-import { Auth } from './auth/entities/auth.entity';
-import { FileModule } from './file/file.module';
-import { RefreshToken } from './users/entities/refresh.entity';
-import { UploadedFile } from './file/entities/file.entity';
 
-import { Role } from './users/entities/role.entity';
+import { FileModule } from './file/file.module';
+
+import { UploadedFile } from './file/entities/file.entity';
 
 import { NotificationsModule } from './notifications/notifications.module';
 import { FcmTokenModule } from './fcm_token/fcm_token.module';
 
 import * as admin from 'firebase-admin';
 import { RedisModule } from './redis/redis.module';
-import { FirebaseAuthModule } from './firebase_auth/firebase_auth.module';
-import { PropertyModule } from './property/property.module';
-import { PropertyImageModule } from './property_image/property_image.module';
 
-import { CustomerModule } from './customer/customer.module';
-import { PropertyFeaturesModule } from './property_features/property_features.module';
-import { ZonesModule } from './zones/zones.module';
-import { CountriesModule } from './countries/countries.module';
-
-import { StatesModule } from './states/states.module';
-import { TaxesModule } from './taxes/taxes.module';
-import { TaxRuleModule } from './tax_rule/tax_rule.module';
-import { RoomTypeModule } from './room_type/room_type.module';
-import { RoomFeatureModule } from './room_feature/room_feature.module';
 import * as dotenv from 'dotenv';
-import { BedTypesModule } from './bed_types/bed_types.module';
-import { AddressModule } from './address/address.module';
-import { ContactModule } from './contact/contact.module';
+import { FirebaseAuthModule } from './firebase_auth/firebase_auth.module';
+
 
 dotenv.config();
 
@@ -54,7 +35,7 @@ dotenv.config();
       username: process.env.DB_USER, // Replace with your PostgreSQL username
       password: process.env.DB_PASSWORD, // Replace with your PostgreSQL password
       database: process.env.DB_DATABASE, // Replace with your PostgreSQL database name
-      entities: [User, RefreshToken, UploadedFile, Role, Auth],
+      entities: [ UploadedFile],
       synchronize: process.env.RUN_MIGRATIONS === 'true', // Only for development; disable in production
       autoLoadEntities: true,
       logging: true, // Useful for debugging
@@ -86,27 +67,14 @@ dotenv.config();
       inject: [ConfigService],
     }),
 
-    AuthModule,
-    UsersModule,
+
+    
     // FileModule, //Enable when file storage needed
     NotificationsModule,
     FcmTokenModule,
     FirebaseAuthModule,
-    PropertyModule,
-    PropertyImageModule,
-
-    CustomerModule,
-    PropertyFeaturesModule,
-    ZonesModule,
-    CountriesModule,
-    AddressModule,
-    ContactModule,
-    StatesModule,
-    TaxesModule,
-    TaxRuleModule,
-    RoomTypeModule,
-    BedTypesModule,
-    RoomFeatureModule,
+    FileModule
+    
    
   ],
   controllers: [AppController],
@@ -115,7 +83,7 @@ dotenv.config();
 export class AppModule {
   constructor() {
     // admin.initializeApp({
-    // //   credential: admin.credential.cert('config/cred.json'),
+      // credential: admin.credential.cert('config/cred.json'),
     // //   storageBucket: 'gs://aaag-the-fire.firebasestorage.app', // Replace with your storage bucket
     // });
   }

@@ -39,16 +39,6 @@ export class CreateUserDto {
   @IsString()
   authId?: string;
 
-
-  @ApiPropertyOptional({ description: 'Delivery Partner Status(available/unavailable)', type: String })
-  @IsString()
-  delivery_partner_status?: string;
-
-  @ApiProperty({ description: 'Role IDs', type: [Number] })
-  @IsArray()
-  @IsNumber({}, { each: true })
-  roleIds: number[]; // IDs of roles to assign
-
   @ApiProperty({ description: 'Reset Password TOken', type: String})
   @IsOptional()
   @IsString()
