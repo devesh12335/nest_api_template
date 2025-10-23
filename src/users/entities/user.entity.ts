@@ -20,7 +20,6 @@ export class User {
   @Column()
   contactNo: string;
 
-
   @Column({ type: 'date', nullable: true })
   dob: Date;
 
@@ -29,15 +28,6 @@ export class User {
 
   @Column({ type: 'text', nullable: true })
   address: string;
-
-  @Column({ type: 'text', nullable: true })
-  authId: string; // Changed to camelCase for consistency in code
-
-  @Column({ type: 'varchar', nullable: true })
-  resetPasswordToken: string;
-
-  @Column({ type: 'timestamp', nullable: true })
-  resetPasswordExpires: Date;
 
   @CreateDateColumn()
   createdAt: Date;

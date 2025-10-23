@@ -10,7 +10,8 @@ export class CreateUserDto {
   @MaxLength(100, { message: 'Name should not exceed 100 characters' })
   name: string;
 
-  @IsEmail({}, { message: 'Invalid email address' })
+  @IsEmail({}, { message: 'Invalid email address', })
+  
   @IsNotEmpty({ message: 'Email is required' })
   email: string;
 
@@ -34,20 +35,6 @@ export class CreateUserDto {
   @ApiPropertyOptional({ description: 'Address', type: String })
   @IsString()
   address?: string;
-
-  @ApiPropertyOptional({ description: 'Auth ID', type: String })
-  @IsString()
-  authId?: string;
-
-  @ApiProperty({ description: 'Reset Password TOken', type: String})
-  @IsOptional()
-  @IsString()
-  resetPasswordToken: string;
-
-  @ApiProperty({ description: 'Reset Password TOken Expiry', type: Date})
-  @IsOptional()
-  @IsDate()
-  resetPasswordExpires: String=new Date().toISOString();
 
   @ApiProperty({ description: 'Reset Password TOken created at', type: Date})
   @IsOptional()
