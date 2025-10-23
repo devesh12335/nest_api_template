@@ -9,7 +9,7 @@ export class SetRolesDto {
     type:"string",
     enum: Roles,
     isArray: true,
-    example: [Roles.ADMIN, Roles.HOTEL_ADMIN] 
+    example: [Roles.ADMIN, Roles.USER] 
   })
   @IsArray()
   @ArrayNotEmpty()

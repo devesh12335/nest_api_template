@@ -73,7 +73,7 @@ dotenv.config();
     NotificationsModule,
     FcmTokenModule,
     FirebaseAuthModule,
-    FileModule
+    
     
    
   ],
